@@ -14,7 +14,7 @@ let isEdited = false
 todoInput.addEventListener("input", (e) => {
     console.log(e.target.value);
     dataElement =  e.target.value
-    domHTML = `<div class="row"><span>${dataElement}</span><span class="editInput"><input type="text" name="updateInput" id="updateInput" class="updateInput"><button class="updateBtn">update</button><button class="cancelBtn">cancel</button></span><button class="editBtn">edit</button><button class="delBtn">delete</button><button>done</button></div>` 
+    domHTML = `<div class="row"><span>${dataElement}</span><span class="editInput"><input type="text" name="updateInput" id="updateInput" class="updateInput"><button class="updateBtn">update</button><button class="cancelBtn">cancel</button></span><button class="editBtn">edit</button><button class="delBtn">delete</button><button class="doneBtn">done</button></div>` 
 })
 
 addTodo.addEventListener("click", () => {
@@ -40,6 +40,7 @@ addTodo.addEventListener("click", () => {
         let updateInput = document.querySelectorAll(".updateInput")
         let nodeL = document.querySelectorAll(".nodeList")
         let delBtn = e.target.classList.contains("delBtn")
+        let doneBtn = e.target.classList.contains("doneBtn")
         if(editBtn){
             console.log("edited");
             dataArray.forEach((data, i) => {
@@ -105,12 +106,10 @@ addTodo.addEventListener("click", () => {
                 let elementrId = nodeList.getAttribute("dataRid")
                 if(elementrId === dat.rId){
                     if(dat.isEdited === false){
-                        console.log(updatedDomdata);
                         editIp[i].style.display = "none"
                         editBn[i].style.display = "block"
                         console.log(dat.isEdited);
-                        nodeL[i].innerHTML = `<div class="row"><span>${dat.todo}</span><span class="editInput"><input type="text" name="updateInput" id="updateInput" class="updateInput"><button class="updateBtn">update</button><button class="cancelBtn">cancel</button></span><button class="editBtn">edit</button><button class="delBtn">delete</button><button>done</button></div>`
-                           
+                        nodeL[i].innerHTML = `<div class="row"><span style="${dat.isChecked && "text-decoration: line-through"}">${dat.todo}</span><span class="editInput"><input type="text" name="updateInput" id="updateInput" class="updateInput"><button class="updateBtn">update</button><button class="cancelBtn">cancel</button></span><button class="editBtn">edit</button><button class="delBtn">delete</button><button >done</button></div>`
                     }      
                 }
             })
@@ -131,6 +130,23 @@ addTodo.addEventListener("click", () => {
             console.log(filteredElement);
             
             
+        } else if(doneBtn){
+            console.log("checked");
+            dataArray.forEach((data, i) => {
+                let elementrId = nodeList.getAttribute("dataRid")
+                if(elementrId === data.rId){
+                    console.log(data.todo);    
+                    isEdited = !isEdited
+                    nodeL[i].firstChild.children[0].style.textDecoration = "line-through"
+                    data.isChecked = !data.isChecked
+                    if(data.isChecked === true){
+                        nodeL[i].firstChild.children[0].style.textDecoration = "line-through"
+                    } else if(data.isChecked === false) {
+                        nodeL[i].firstChild.children[0].style.textDecoration = "none"
+                    }  
+                    return data   
+                }
+             })
         }
 
 
