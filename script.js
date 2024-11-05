@@ -109,7 +109,7 @@ addTodo.addEventListener("click", () => {
                         editIp[i].style.display = "none"
                         editBn[i].style.display = "block"
                         console.log(dat.isEdited);
-                        nodeL[i].innerHTML = `<div class="row"><span style="${dat.isChecked && "text-decoration: line-through"}">${dat.todo}</span><span class="editInput"><input type="text" name="updateInput" id="updateInput" class="updateInput"><button class="updateBtn">update</button><button class="cancelBtn">cancel</button></span><button class="editBtn">edit</button><button class="delBtn">delete</button><button >done</button></div>`
+                        nodeL[i].firstChild.children[0].innerHTML = `${dat.todo}`
                     }      
                 }
             })
