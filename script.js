@@ -46,8 +46,8 @@ addTodo.addEventListener("click", () => {
                 let elementrId = nodeList.getAttribute("dataRid")
                 if(elementrId === data.rId){
                     console.log(data.todo);   
-                    isEdited = !isEdited
-                    return data.isEdited = !data.isEdited      
+                    isEdited = true
+                    return data.isEdited = true    
                 }
                 
                 // console.log(elementrId);
@@ -56,15 +56,14 @@ addTodo.addEventListener("click", () => {
              dataArray.forEach((dat,i) => {
                 let elementrId = nodeList.getAttribute("dataRid")
                 if(elementrId === dat.rId){
+                    updateInput[i].addEventListener("input", (e) => {
+                        updatedDomdata = e.target.value
+                        console.log(updatedDomdata);
+                        updateInput[i].value = dat.todo   
+                    }) 
                     if(dat.isEdited === true){
                         editIp[i].style.display = "block"
                         editBn[i].style.display = "none"
-                        updateInput[i].addEventListener("input", (e) => {
-                            updatedDomdata = e.target.value
-                            console.log(updatedDomdata);
-                            
-                        }) 
-                        // updateIp[i].value = dat.todo
                         console.log(dat.isEdited);   
                     }      
                 }
@@ -124,29 +123,6 @@ addTodo.addEventListener("click", () => {
     })    
 })
 
-// elementControl()
-
-
-// function elementControl(currentIndex){
-//     lcon.addEventListener("click",(e) => {
-//         let nodeList = document.querySelectorAll(".nodeList")
-//         let editBtn = e.target.classList.contains("editBtn")
-//         let editBn = document.querySelectorAll(".editBtn")
-//         currentIndex + 1
-//         if(editBtn){
-//             console.log("edited");
-//             nodeList.forEach((element, index) => {
-//                 let elementrId = element.getAttribute("dataRid")
-//                 if(elementrId === dataArray[index].rId){
-//                     // console.log(dataArray[index].rId);
-//                     // console.log(elementrId);
-//                   editBn[index].style.color = "red";      
-//                 }
-//                 // console.log(elementrId);
-//              })
-//         }
-//     })
-// }
 
 
 
