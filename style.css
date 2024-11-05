@@ -1,0 +1,12 @@
+button{
+    cursor: pointer;
+}
+
+.editInput{
+    display: none;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
