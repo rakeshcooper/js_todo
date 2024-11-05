@@ -1,6 +1,5 @@
 let todoInput = document.querySelector(".todoInput")
 let addTodo = document.querySelector(".addTodo")
-let updateInput = document.querySelector(".updateInput")
 let dataElement;
 let dataArray = [];
 let domHTML 
@@ -13,7 +12,7 @@ let isEdited = false
 todoInput.addEventListener("input", (e) => {
     console.log(e.target.value);
     dataElement =  e.target.value
-    domHTML = `<div class="row"><span>${dataElement}</span><span class="editInput"><input type="text" name="updateInput" id="updateInput" class="updateInput"><button>update</button><button class="cancelBtn">cancel</button></span><button class="editBtn">edit</button><button class="delBtn">delete</button><button>done</button></div>` 
+    domHTML = `<div class="row"><span>${dataElement}</span><span class="editInput"><input type="text" name="updateInput" id="updateInput" class="updateInput"><button class="updateBtn">update</button><button class="cancelBtn">cancel</button></span><button class="editBtn">edit</button><button class="delBtn">delete</button><button>done</button></div>` 
 })
 
 addTodo.addEventListener("click", () => {
@@ -36,6 +35,8 @@ addTodo.addEventListener("click", () => {
         let updateIp = document.querySelectorAll(".updateInput")
         let cancelBtn = e.target.classList.contains("cancelBtn")
         let cancelBn = document.querySelectorAll(".cancelBtn")
+        let updateBtn = e.target.classList.contains("updateBtn")
+        let updateBn = document.querySelectorAll(".updateBtn")
         if(editBtn){
             console.log("edited");
             dataArray.forEach((data, index) => {
@@ -68,6 +69,28 @@ addTodo.addEventListener("click", () => {
                     console.log(data.todo);    
                     isEdited = !isEdited
                     return data.isEdited = !data.isEdited      
+                }
+             })
+
+             dataArray.forEach((dat,i) => {
+                let elementrId = nodeList.getAttribute("dataRid")
+                if(elementrId === dat.rId){
+                    if(dat.isEdited === false){
+                        editIp[i].style.display = "none"
+                        editBn[i].style.display = "block"
+                        console.log(dat.isEdited);   
+                    }      
+                }
+            })
+        } else if(updateBtn){
+            console.log("updated");
+            dataArray.forEach((data, index) => {
+                let elementrId = nodeList.getAttribute("dataRid")
+                if(elementrId === data.rId){
+                    console.log(data.todo);    
+                    isEdited = !isEdited
+                    data.isEdited = !data.isEdited
+                    return data      
                 }
              })
 
