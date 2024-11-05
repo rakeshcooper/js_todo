@@ -33,7 +33,6 @@ addTodo.addEventListener("click", () => {
         let editBtn = e.target.classList.contains("editBtn")
         let editBn = document.querySelectorAll(".editBtn")
         let editIp = document.querySelectorAll(".editInput")
-        let updateIp = document.querySelectorAll(".updateInput")
         let cancelBtn = e.target.classList.contains("cancelBtn")
         let cancelBn = document.querySelectorAll(".cancelBtn")
         let updateBtn = e.target.classList.contains("updateBtn")
@@ -47,7 +46,8 @@ addTodo.addEventListener("click", () => {
                 if(elementrId === data.rId){
                     console.log(data.todo);   
                     isEdited = true
-                    return data.isEdited = true    
+                    data.isEdited = true  
+                    return data  
                 }
                 
                 // console.log(elementrId);
@@ -56,16 +56,19 @@ addTodo.addEventListener("click", () => {
              dataArray.forEach((dat,i) => {
                 let elementrId = nodeList.getAttribute("dataRid")
                 if(elementrId === dat.rId){
-                    updateInput[i].addEventListener("input", (e) => {
-                        updatedDomdata = e.target.value
-                        console.log(updatedDomdata);
-                        updateInput[i].value = dat.todo   
-                    }) 
                     if(dat.isEdited === true){
                         editIp[i].style.display = "block"
                         editBn[i].style.display = "none"
-                        console.log(dat.isEdited);   
-                    }      
+                        console.log(dat.isEdited);
+                        updateInput[i].value = dat.todo   
+                    } 
+                    //  
+                    // updateInput[i].addEventListener("input", (e) => {
+                    // updatedDomdata = e.target.value
+                    // console.log(updatedDomdata);
+                    // })
+                 
+                         
                 }
             })
         } else if(cancelBtn){
@@ -75,7 +78,8 @@ addTodo.addEventListener("click", () => {
                 if(elementrId === data.rId){
                     console.log(data.todo);    
                     isEdited = !isEdited
-                    return data.isEdited = !data.isEdited      
+                    data.isEdited = false   
+                    return data   
                 }
              })
 
@@ -96,9 +100,10 @@ addTodo.addEventListener("click", () => {
                 if(elementrId === data.rId){
                     console.log(data.todo);    
                     isEdited = !isEdited
-                    let udata = updatedDomdata
+                    // let udata = updatedDomdata
+                    let udata = updateInput[i].value
                     data.todo = udata
-                    data.isEdited = !data.isEdited
+                    data.isEdited = false
                     return data      
                 }
              })
@@ -106,15 +111,16 @@ addTodo.addEventListener("click", () => {
              dataArray.forEach((dat,i) => {
                 let elementrId = nodeList.getAttribute("dataRid")
                 if(elementrId === dat.rId){
+                    // nodeL[i].innerHTML = domHTML
+                    // nodeL[i].firstChild.children[1].innerText = dat.todo
+                    // console.log(nodeL[i]);
                     if(dat.isEdited === false){
-                        // nodeL[i].innerHTML = domHTML
-                        nodeL[i].firstChild.children[1].innerText = "dat.todo"
-                        console.log(nodeL[i]);
-                        
                         console.log(updatedDomdata);
                         editIp[i].style.display = "none"
                         editBn[i].style.display = "block"
-                        console.log(dat.isEdited);   
+                        console.log(dat.isEdited);
+                        nodeL[i].innerHTML = `<div class="row"><span>${dat.todo}</span><span class="editInput"><input type="text" name="updateInput" id="updateInput" class="updateInput"><button class="updateBtn">update</button><button class="cancelBtn">cancel</button></span><button class="editBtn">edit</button><button class="delBtn">delete</button><button>done</button></div>`
+                           
                     }      
                 }
             })
