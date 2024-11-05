@@ -2,6 +2,7 @@ let todoInput = document.querySelector(".todoInput")
 let addTodo = document.querySelector(".addTodo")
 let dataElement;
 let dataArray = [];
+let filteredElement = []
 let domHTML 
 let updatedData;
 let updatedDomdata;
@@ -29,7 +30,6 @@ addTodo.addEventListener("click", () => {
     todoInput.value = ""
     let nodeList = document.querySelector(".nodeList")
     nodeList.addEventListener("click",(e) => {
-        
         let editBtn = e.target.classList.contains("editBtn")
         let editBn = document.querySelectorAll(".editBtn")
         let editIp = document.querySelectorAll(".editInput")
@@ -39,6 +39,7 @@ addTodo.addEventListener("click", () => {
         let updateBn = document.querySelectorAll(".updateBtn")
         let updateInput = document.querySelectorAll(".updateInput")
         let nodeL = document.querySelectorAll(".nodeList")
+        let delBtn = e.target.classList.contains("delBtn")
         if(editBtn){
             console.log("edited");
             dataArray.forEach((data, i) => {
@@ -61,14 +62,7 @@ addTodo.addEventListener("click", () => {
                         editBn[i].style.display = "none"
                         console.log(dat.isEdited);
                         updateInput[i].value = dat.todo   
-                    } 
-                    //  
-                    // updateInput[i].addEventListener("input", (e) => {
-                    // updatedDomdata = e.target.value
-                    // console.log(updatedDomdata);
-                    // })
-                 
-                         
+                    }      
                 }
             })
         } else if(cancelBtn){
@@ -100,7 +94,6 @@ addTodo.addEventListener("click", () => {
                 if(elementrId === data.rId){
                     console.log(data.todo);    
                     isEdited = !isEdited
-                    // let udata = updatedDomdata
                     let udata = updateInput[i].value
                     data.todo = udata
                     data.isEdited = false
@@ -111,9 +104,6 @@ addTodo.addEventListener("click", () => {
              dataArray.forEach((dat,i) => {
                 let elementrId = nodeList.getAttribute("dataRid")
                 if(elementrId === dat.rId){
-                    // nodeL[i].innerHTML = domHTML
-                    // nodeL[i].firstChild.children[1].innerText = dat.todo
-                    // console.log(nodeL[i]);
                     if(dat.isEdited === false){
                         console.log(updatedDomdata);
                         editIp[i].style.display = "none"
@@ -124,7 +114,26 @@ addTodo.addEventListener("click", () => {
                     }      
                 }
             })
+        } else if(delBtn){
+            console.log("deleted");
+            
+            let elementrId = nodeList.getAttribute("dataRid")
+            filteredElement = dataArray.filter((dat,i) => {
+                console.log(elementrId);
+                    if(elementrId === dat.rId){
+                        nodeL[i].remove()
+                    }
+                    return dat.rId != elementrId
+                   
+            })
+            dataArray = filteredElement
+            console.log(elementrId);
+            console.log(filteredElement);
+            
+            
         }
+
+
         console.log(dataArray);
     })    
 })
