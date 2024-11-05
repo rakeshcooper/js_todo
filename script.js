@@ -37,12 +37,18 @@ addTodo.addEventListener("click", () => {
         let cancelBn = document.querySelectorAll(".cancelBtn")
         let updateBtn = e.target.classList.contains("updateBtn")
         let updateBn = document.querySelectorAll(".updateBtn")
+        let updateInput = document.querySelectorAll(".updateInput")
         if(editBtn){
             console.log("edited");
-            dataArray.forEach((data, index) => {
+            dataArray.forEach((data, i) => {
                 let elementrId = nodeList.getAttribute("dataRid")
                 if(elementrId === data.rId){
-                    console.log(data.todo);    
+                    console.log(data.todo);  
+                    updateInput[i].addEventListener("input", (e) => {
+                        let updatedDom = e.target.value
+                        console.log(updatedDom);
+                        
+                    })  
                     isEdited = !isEdited
                     return data.isEdited = !data.isEdited      
                 }
@@ -84,7 +90,7 @@ addTodo.addEventListener("click", () => {
             })
         } else if(updateBtn){
             console.log("updated");
-            dataArray.forEach((data, index) => {
+            dataArray.forEach((data, i) => {
                 let elementrId = nodeList.getAttribute("dataRid")
                 if(elementrId === data.rId){
                     console.log(data.todo);    
