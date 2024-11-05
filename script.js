@@ -4,6 +4,7 @@ let dataElement;
 let dataArray = [];
 let domHTML 
 let updatedData;
+let updatedDomdata;
 let lcon = document.querySelector(".listcon")
 let nodeList = document.querySelectorAll(".nodeList")
 let isEdited = false
@@ -38,17 +39,13 @@ addTodo.addEventListener("click", () => {
         let updateBtn = e.target.classList.contains("updateBtn")
         let updateBn = document.querySelectorAll(".updateBtn")
         let updateInput = document.querySelectorAll(".updateInput")
+        let nodeL = document.querySelectorAll(".nodeList")
         if(editBtn){
             console.log("edited");
             dataArray.forEach((data, i) => {
                 let elementrId = nodeList.getAttribute("dataRid")
                 if(elementrId === data.rId){
-                    console.log(data.todo);  
-                    updateInput[i].addEventListener("input", (e) => {
-                        let updatedDom = e.target.value
-                        console.log(updatedDom);
-                        
-                    })  
+                    console.log(data.todo);   
                     isEdited = !isEdited
                     return data.isEdited = !data.isEdited      
                 }
@@ -60,9 +57,14 @@ addTodo.addEventListener("click", () => {
                 let elementrId = nodeList.getAttribute("dataRid")
                 if(elementrId === dat.rId){
                     if(dat.isEdited === true){
-                        updateIp[i].value = dat.todo
                         editIp[i].style.display = "block"
                         editBn[i].style.display = "none"
+                        updateInput[i].addEventListener("input", (e) => {
+                            updatedDomdata = e.target.value
+                            console.log(updatedDomdata);
+                            
+                        }) 
+                        // updateIp[i].value = dat.todo
                         console.log(dat.isEdited);   
                     }      
                 }
@@ -95,6 +97,8 @@ addTodo.addEventListener("click", () => {
                 if(elementrId === data.rId){
                     console.log(data.todo);    
                     isEdited = !isEdited
+                    let udata = updatedDomdata
+                    data.todo = udata
                     data.isEdited = !data.isEdited
                     return data      
                 }
@@ -104,6 +108,11 @@ addTodo.addEventListener("click", () => {
                 let elementrId = nodeList.getAttribute("dataRid")
                 if(elementrId === dat.rId){
                     if(dat.isEdited === false){
+                        // nodeL[i].innerHTML = domHTML
+                        nodeL[i].firstChild.children[1].innerText = "dat.todo"
+                        console.log(nodeL[i]);
+                        
+                        console.log(updatedDomdata);
                         editIp[i].style.display = "none"
                         editBn[i].style.display = "block"
                         console.log(dat.isEdited);   
